@@ -13,8 +13,12 @@ from pathlib import Path
 try:
     import anthropic
 except ImportError:
-    print("请安装anthropic: pip install anthropic")
-    exit(1)
+    anthropic = None
+
+try:
+    import openai
+except ImportError:
+    openai = None
 
 import frontmatter
 
@@ -88,12 +92,33 @@ POLICY_USER_PROMPT = """解读以下政策文件：
 输出：Markdown格式，含front-matter（title, date, tags: ["政策解读", ...], categories: ["政策解读"], summary, ai_generated: true）"""
 
 
+def get_provider() -> str:
+    """获取AI提供商（环境变量控制，默认claude）"""
+    return os.environ.get('AI_PROVIDER', 'claude').lower()
+
+
 def get_client():
-    """获取Anthropic客户端"""
-    api_key = os.environ.get('ANTHROPIC_API_KEY')
-    if not api_key:
-        raise ValueError("请设置环境变量 ANTHROPIC_API_KEY")
-    return anthropic.Anthropic(api_key=api_key)
+    """获取AI客户端（支持 Claude / DeepSeek）"""
+    provider = get_provider()
+
+    if provider == 'deepseek':
+        api_key = os.environ.get('DEEPSEEK_API_KEY')
+        if not api_key:
+            raise ValueError("请设置环境变量 DEEPSEEK_API_KEY")
+        if openai is None:
+            raise ValueError("请安装openai: pip install openai")
+        return openai.OpenAI(
+            api_key=api_key,
+            base_url="https://api.deepseek.com/v1"
+        )
+
+    else:  # default: claude
+        api_key = os.environ.get('ANTHROPIC_API_KEY')
+        if not api_key:
+            raise ValueError("请设置环境变量 ANTHROPIC_API_KEY")
+        if anthropic is None:
+            raise ValueError("请安装anthropic: pip install anthropic")
+        return anthropic.Anthropic(api_key=api_key)
 
 
 def load_hotspots() -> list:
@@ -143,6 +168,29 @@ def generate_with_claude(client, user_prompt: str, system: str = SYSTEM_PROMPT) 
         ]
     )
     return message.content[0].text
+
+
+def generate_with_deepseek(client, user_prompt: str, system: str = SYSTEM_PROMPT) -> str:
+    """调用DeepSeek API生成内容（OpenAI兼容格式）"""
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        max_tokens=4000,
+        temperature=0.7,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+    return response.choices[0].message.content
+
+
+def generate_content(client, user_prompt: str, system: str = SYSTEM_PROMPT) -> str:
+    """根据provider选择生成方式"""
+    provider = get_provider()
+    if provider == 'deepseek':
+        return generate_with_deepseek(client, user_prompt, system)
+    else:
+        return generate_with_claude(client, user_prompt, system)
 
 
 def quality_check(content: str) -> dict:
@@ -208,7 +256,7 @@ def generate_article(hotspot: dict, client) -> str | None:
 
     for attempt in range(MAX_RETRIES):
         try:
-            content = generate_with_claude(client, user_prompt)
+            content = generate_content(client, user_prompt)
 
             # 质量检查
             check = quality_check(content)

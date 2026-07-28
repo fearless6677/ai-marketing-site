@@ -2,14 +2,23 @@ name: Auto Publish
 
 on:
   schedule:
-    # UTC时间: 01:00, 06:00, 11:00 = 北京时间 09:00, 14:00, 19:00
-    - cron: '0 1,6,11 * * *'
+    # UTC 00:00 = 北京时间 08:00（每日一次）
+    - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      skip_generate:
+        description: '跳过文章生成（仅构建发布已有内容）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
   push:
     paths:
       - 'content/**'
 
-# 并发控制
+# 并发控制：同一时间只运行一个
 concurrency:
   group: auto-publish
   cancel-in-progress: false
@@ -32,22 +41,11 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
           cache: 'pip'
 
       - name: Install Python dependencies
         run: pip install -r requirements.txt
-
-      - name: Collect hotspots
-        env:
-          TZ: Asia/Shanghai
-        run: python scripts/collect_hotspots.py
-
-      - name: Generate articles
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          TZ: Asia/Shanghai
-        run: python scripts/generate_article.py
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -55,33 +53,76 @@ jobs:
           hugo-version: '0.147.8'
           extended: true
 
-      - name: Build with Hugo
+      # ─── Step 1: 热点采集 ─────────────────────────────────
+      - name: Step 1 - Collect hotspots
+        id: collect
+        env:
+          TZ: Asia/Shanghai
+        run: python scripts/collect_hotspots.py
+        continue-on-error: true
+
+      # ─── Step 2: AI内容生成 ────────────────────────────────
+      - name: Step 2 - Generate articles
+        id: generate
+        if: github.event.inputs.skip_generate != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AI_PROVIDER: ${{ secrets.AI_PROVIDER || 'claude' }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          TZ: Asia/Shanghai
+        run: python scripts/generate_article.py
+        continue-on-error: true
+
+      # ─── Step 3: Hugo构建 ──────────────────────────────────
+      - name: Step 3 - Build with Hugo
+        id: build
         env:
           HUGO_ENV: production
         run: hugo --minify
 
-      - name: Commit and push changes
+      # ─── Step 4: 提交并推送 ────────────────────────────────
+      - name: Step 4 - Commit and push
+        id: publish
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/ content/ logs/
+          git add data/ content/ logs/ reports/
           git diff --staged --quiet || git commit -m "feat: 自动更新内容 $(date +%Y-%m-%d)"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Submit to Baidu
-        if: github.ref == 'refs/heads/main'
+      # ─── Step 5a: 百度链接提交 ──────────────────────────────
+      - name: Step 5a - Submit to Baidu
+        if: github.ref == 'refs/heads/main' && steps.publish.outcome == 'success'
         env:
           BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
         run: python scripts/submit_to_baidu.py || true
+        continue-on-error: true
 
-      - name: Submit to Google
-        if: github.ref == 'refs/heads/main'
+      # ─── Step 5b: Google Indexing API ──────────────────────
+      - name: Step 5b - Submit to Google
+        if: github.ref == 'refs/heads/main' && steps.publish.outcome == 'success'
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: python scripts/submit_to_google.py || true
+        continue-on-error: true
 
+      # ─── Step 5c: Bing Webmaster ───────────────────────────
+      - name: Step 5c - Submit to Bing
+        if: github.ref == 'refs/heads/main' && steps.publish.outcome == 'success'
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: python scripts/submit_to_bing.py || true
+        continue-on-error: true
+
+      # ─── Step 5d: SEO 检查 ─────────────────────────────────
+      - name: Step 5d - SEO Check
+        if: steps.build.outcome == 'success'
+        run: bash scripts/seo_check.sh || true
+        continue-on-error: true
+
+      # ─── Step 6: 部署到 GitHub Pages ───────────────────────
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -89,6 +130,27 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
+
+      # ─── Step 7: 企业微信通知 ──────────────────────────────
+      - name: Step 7 - Send notification
+        if: always()
+        env:
+          WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
+        run: |
+          # 构建结果JSON
+          COLLECT_STATUS="${{ steps.collect.outcome == 'success' }}"
+          BUILD_STATUS="${{ steps.build.outcome == 'success' }}"
+          PUBLISH_STATUS="${{ steps.publish.outcome == 'success' }}"
+
+          RESULTS="{\"采集热点\": $COLLECT_STATUS, \"Hugo构建\": $BUILD_STATUS, \"发布\": $PUBLISH_STATUS}"
+
+          # 判断整体状态
+          if [ "$BUILD_STATUS" = "true" ] && [ "$PUBLISH_STATUS" = "true" ]; then
+            python scripts/notify.py --type success --results "$RESULTS"
+          else
+            python scripts/notify.py --type failure --results "$RESULTS" --message "构建或发布步骤失败，请检查 Actions 日志"
+          fi
+        continue-on-error: true
 
   deploy:
     environment:

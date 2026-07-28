@@ -2,7 +2,7 @@ name: Daily Report
 
 on:
   schedule:
-    # UTC 16:00 = 北京时间 00:00
+    # UTC 16:00 = 北京时间 00:00（每日汇总）
     - cron: '0 16 * * *'
   workflow_dispatch:
 
@@ -19,7 +19,10 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
       - name: Generate daily report
         run: python scripts/daily_report.py
@@ -35,3 +38,25 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send daily summary notification
+        if: always()
+        env:
+          WECOM_WEBHOOK_URL: ${{ secrets.WECOM_WEBHOOK_URL }}
+          TZ: Asia/Shanghai
+        run: |
+          # 从报告文件中提取统计数据
+          TODAY=$(date +%Y-%m-%d)
+          REPORT_FILE="reports/${TODAY}.md"
+
+          if [ -f "$REPORT_FILE" ]; then
+            # 简单提取数字
+            HOTSPOTS=$(grep "采集热点数" "$REPORT_FILE" | grep -oP '\d+' | head -1 || echo "0")
+            ARTICLES=$(grep "新增文章数" "$REPORT_FILE" | grep -oP '\d+' | head -1 || echo "0")
+
+            STATS="{\"hotspots\": $HOTSPOTS, \"articles\": $ARTICLES, \"published\": $ARTICLES, \"seo_submitted\": 0}"
+            python scripts/notify.py --type daily --results "$STATS"
+          else
+            python scripts/notify.py --type failure --results "{\"报告生成\": false}" --message "每日报告文件未生成: $REPORT_FILE"
+          fi
+        continue-on-error: true

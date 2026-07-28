@@ -1,0 +1,71 @@
+name: SEO Submit
+
+on:
+  # 每次部署后自动提交
+  workflow_run:
+    workflows: ["Auto Publish"]
+    types:
+      - completed
+  # 手动触发
+  workflow_dispatch:
+    inputs:
+      days:
+        description: '提交最近几天的文章 (默认1)'
+        required: false
+        default: '1'
+        type: number
+
+jobs:
+  seo-submit:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install requests python-frontmatter pyyaml
+
+      - name: Create logs directory
+        run: mkdir -p logs
+
+      - name: Submit to Baidu
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+        run: python scripts/submit_to_baidu.py
+        continue-on-error: true
+
+      - name: Submit to Google
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python scripts/submit_to_google.py
+        continue-on-error: true
+
+      - name: Submit to Bing
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: python scripts/submit_to_bing.py
+        continue-on-error: true
+
+      - name: Run SEO check
+        run: |
+          bash scripts/seo_check.sh
+        continue-on-error: true
+
+      - name: Upload SEO logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-logs
+          path: logs/seo.log
+          retention-days: 30

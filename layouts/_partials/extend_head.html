@@ -1,0 +1,87 @@
+{{- /* AI营销集成服务 - 增强SEO头部 */ -}}
+
+{{- /* 百度站长验证 */ -}}
+{{- with site.Params.analytics.baidu.SiteVerificationTag }}
+<meta name="baidu-site-verification" content="{{ . }}">
+{{- end }}
+
+{{- /* 360搜索验证 */ -}}
+{{- with site.Params.analytics.soso.SiteVerificationTag }}
+<meta name="360-site-verification" content="{{ . }}">
+{{- end }}
+
+{{- /* 搜狗验证 */ -}}
+{{- with site.Params.analytics.sogou.SiteVerificationTag }}
+<meta name="sogou-site-verification" content="{{ . }}">
+{{- end }}
+
+{{- /* 神马搜索验证 */ -}}
+{{- with site.Params.analytics.sm.SiteVerificationTag }}
+<meta name="sm-site-verification" content="{{ . }}">
+{{- end }}
+
+{{- /* 增强 Open Graph - 补充 PaperMod 模板未覆盖的标签 */ -}}
+{{- if .IsPage }}
+{{- with .PublishDate }}
+<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05+08:00" }}">
+{{- end }}
+{{- with .Lastmod }}
+<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05+08:00" }}">
+{{- end }}
+{{- with .Params.author | default site.Params.author }}
+<meta property="article:author" content="{{ . }}">
+{{- end }}
+{{- else }}
+{{- /* 首页 OG 增强 */ -}}
+<meta property="og:site_name" content="{{ site.Title }}">
+{{- end }}
+
+{{- /* Twitter 增强 */ -}}
+{{- with site.Params.social.twitter }}
+<meta name="twitter:site" content="{{ if not (strings.HasPrefix . "@") }}@{{ end }}{{ . }}">
+{{- end }}
+<meta name="twitter:creator" content="@AI营销团队">
+
+{{- /* 搜索引擎优化 - 额外 meta */ -}}
+{{- if .Params.noIndex }}
+<meta name="robots" content="noindex, nofollow">
+{{- else if .IsPage }}
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+{{- else }}
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+{{- end }}
+
+{{- /* 语言声明 */ -}}
+{{- if .IsPage }}
+<meta http-equiv="content-language" content="{{ .Language.LanguageCode }}">
+{{- end }}
+
+{{- /* DNS Prefetch - 提升外部资源加载性能 */ -}}
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//fonts.gstatic.com">
+<link rel="dns-prefetch" href="//www.google-analytics.com">
+<link rel="dns-prefetch" href="//hm.baidu.com">
+<link rel="dns-prefetch" href="//github.com">
+
+{{- /* Preconnect - 预先建立连接 */ -}}
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+{{- /* 资源提示 - 预加载关键资源 */ -}}
+{{- if .IsHome }}
+<link rel="preload" as="image" href="/images/og-home.webp">
+{{- end }}
+
+{{- /* 生成 RSS autodiscovery link (非首页也生成) */ -}}
+{{- if not .IsHome }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "/index.xml" | absURL }}">
+{{- end }}
+
+{{- /* 规范URL增强 - 去除末尾斜杠一致性 */ -}}
+{{- if .IsPage -}}
+<link rel="canonical" href="{{ .Permalink }}">
+{{- end }}
+
+{{- /* 主题色覆盖 - PaperMod默认#2e2e33，我们使用科技蓝#1976D2 */ -}}
+<meta name="theme-color" content="#1976D2">
+<meta name="msapplication-TileColor" content="#1976D2">

@@ -1,0 +1,44 @@
+{{- /* AI营销集成服务 - 增强图片渲染（懒加载 + 异步解码 + CLS预防） */ -}}
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- $isExternal := $u.IsAbs -}}
+{{- if not $isExternal -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $src = .RelPermalink -}}
+    {{- with $u.RawQuery -}}
+      {{- $src = printf "%s?%s" $src . -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $src = printf "%s#%s" $src . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* 构建图片属性 */ -}}
+{{- $attributes := merge .Attributes (dict
+  "alt" .Text
+  "src" $src
+  "title" (.Title | transform.HTMLEscape)
+  "loading" "lazy"
+  "decoding" "async"
+  "fetchpriority" "low"
+) -}}
+
+{{- /* 如果是本地图片，尝试获取尺寸（CLS预防） */ -}}
+{{- if not $isExternal -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with (resources.Get $path) -}}
+    {{- if eq .MediaType.MainType "image" -}}
+      {{- $attributes = merge $attributes (dict "width" .Width "height" .Height) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<img
+  {{- range $k, $v := $attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}>
+{{- /**/ -}}

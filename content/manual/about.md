@@ -3,6 +3,7 @@ title: "关于我们"
 date: 2026-07-28
 draft: false
 layout: "about"
+noIndex: true
 ---
 
 ## AI营销集成服务

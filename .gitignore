@@ -4,11 +4,17 @@ resources/
 
 # 日志
 logs/*.log
+!logs/.gitkeep
 
 # 数据（不提交采集数据到仓库）
 data/hotspots/*.json
 !data/hotspots/.gitkeep
 data/google_credentials.json
+data/articles_history.json
+
+# 报告（本地保留，不提交）
+reports/*.md
+!reports/.gitkeep
 
 # Python
 __pycache__/

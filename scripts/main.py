@@ -85,6 +85,43 @@ def step_seo_submit():
     return baidu_ok and google_ok
 
 
+def step_notify(results: dict, error_msg: str = ""):
+    """步骤6: 发送通知"""
+    try:
+        from notify import notify_success, notify_failure, notify_daily_summary
+
+        # 判断整体是否成功
+        all_ok = all(results.values())
+
+        if all_ok:
+            # 收集今日统计
+            today_stats = _collect_today_stats()
+            notify_daily_summary(today_stats)
+        elif any(results.values()):
+            # 部分成功
+            notify_success(results)
+        else:
+            # 全部失败
+            notify_failure(results, error_msg)
+
+        return True
+    except Exception as e:
+        logger.warning(f"通知步骤失败（不影响整体流程）: {e}")
+        return True  # 通知失败不算关键失败
+
+
+def _collect_today_stats() -> dict:
+    """收集今日运营统计数据"""
+    from daily_report import count_today_articles, count_hotspots
+
+    return {
+        'hotspots': count_hotspots(),
+        'articles': count_today_articles(),
+        'published': count_today_articles(),
+        'seo_submitted': 0,  # 实际数量在SEO步骤统计
+    }
+
+
 def main():
     """主函数"""
     logger.info(f"\n{'#'*60}")
@@ -114,6 +151,13 @@ def main():
         status = '✅ 成功' if ok else '❌ 失败'
         logger.info(f"  {name}: {status}")
     logger.info(f"{'='*50}")
+
+    # 发送通知
+    error_msg = ""
+    if not results.get('热点数据采集') or not results.get('Hugo构建'):
+        error_msg = "关键步骤（采集或构建）失败，请检查日志"
+
+    step_notify(results, error_msg)
 
     # 关键步骤失败则退出码1
     if not results.get('热点数据采集') or not results.get('Hugo构建'):

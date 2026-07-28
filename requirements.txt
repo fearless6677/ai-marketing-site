@@ -1,10 +1,15 @@
 # AI营销自动化系统依赖
+# 核心
 requests>=2.31.0
 beautifulsoup4>=4.12.0
-anthropic>=0.40.0
 python-frontmatter>=1.0.0
 PyYAML>=6.0
-# Google API (可选)
+
+# AI Provider
+anthropic>=0.40.0      # Claude API
+openai>=1.10.0         # DeepSeek API（兼容OpenAI格式）
+
+# Google Indexing API（可选，取消注释启用）
 # google-api-python-client>=2.100.0
 # google-auth-httplib2>=0.1.0
 # google-auth>=2.23.0

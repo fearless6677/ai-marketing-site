@@ -40,9 +40,20 @@ ai-marketing-site/
 │   ├── publish.py           # Git发布
 │   ├── submit_to_baidu.py   # 百度SEO提交
 │   ├── submit_to_google.py  # Google SEO提交
+│   ├── submit_to_bing.py    # Bing SEO提交
+│   ├── submit_all.py        # 统一SEO提交
+│   ├── seo_check.py         # SEO验证（Python）
+│   ├── seo_check.sh         # SEO验证（Bash）
 │   └── main.py             # 主流程控制
+├── layouts/                 # Hugo布局覆盖（SEO增强）
+│   ├── robots.txt           # 自定义robots规则
+│   ├── _default/sitemap.xml # 自定义sitemap模板
+│   ├── _partials/extend_head.html       # SEO meta增强
+│   ├── _partials/templates/schema_json.html  # Schema.org
+│   └── _markup/render-image.html        # 图片懒加载
 ├── templates/               # 内容模板
 ├── data/                    # 数据文件
+├── reports/                 # SEO报告
 ├── .github/workflows/       # GitHub Actions
 └── docs/                    # 文档
 ```
@@ -113,8 +124,13 @@ python scripts/submit_to_google.py
 
 ## 📖 文档
 
-- [部署指南](docs/DEPLOYMENT.md)
-- [自动化流程说明](docs/AUTOMATION.md)
+| 文档 | 说明 |
+|------|------|
+| [部署指南](docs/DEPLOYMENT.md) | 从零开始部署（环境配置、域名、GitHub Pages） |
+| [自动化说明](docs/AUTOMATION.md) | 自动化工作流详解（采集→生成→发布→SEO） |
+| [使用手册](USAGE.md) | 日常运维操作手册（手动发文、审核、排障） |
+| [DNS配置](DNS_SETUP.md) | 域名DNS解析配置指南 |
+| [脚本说明](scripts/README.md) | Python自动化脚本API文档 |
 
 ## 📊 自动化工作流
 

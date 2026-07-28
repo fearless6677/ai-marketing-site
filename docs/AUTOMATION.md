@@ -22,6 +22,14 @@ GitHub Actions 配置了以下定时任务：
 | 06:00 | 14:00 | 工作日下午第二篇 |
 | 11:00 | 19:00 | 工作日晚上第三篇 |
 
+### seo-submit.yml
+
+| 触发时间 (UTC) | 触发时间 (北京) | 说明 |
+|----------------|----------------|------|
+| 18:00 | 02:00 (次日) | 每日SEO链接提交 |
+
+> 与 auto-publish.yml 分开，避免单次运行时间过长。
+
 ### daily-report.yml
 
 | 触发时间 (UTC) | 触发时间 (北京) | 说明 |
@@ -143,3 +151,32 @@ python scripts/main.py
 2. **API 成本** — 在 Anthropic Console 设置预算告警
 3. **网站可用性** — 使用 UptimeRobot 等服务监控
 4. **SEO 效果** — 每周检查百度/Google 收录情况
+
+## 通知系统
+
+### 企业微信通知
+
+配置 `WECOM_WEBHOOK_URL` Secret 后，每次自动化运行都会推送通知。
+
+通知内容包括：
+- ✅ 采集热点数量
+- ✅ 生成文章标题
+- ✅ 构建是否成功
+- ✅ 发布是否成功
+- ❌ 失败原因（如有）
+
+### 通知类型
+
+| 类型 | 触发条件 | 内容 |
+|------|---------|------|
+| success | 构建+发布成功 | 文章标题、耗时、统计 |
+| failure | 构建或发布失败 | 错误信息、排查建议 |
+| daily | 每日00:00 | 当日运营汇总 |
+
+### 获取企业微信Webhook
+
+1. 在企业微信群中添加机器人
+2. 复制Webhook URL
+3. 设置为 GitHub Secret `WECOM_WEBHOOK_URL`
+
+格式：`https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxx`

@@ -40,21 +40,62 @@ menu:
 params:
   env: production
   title: AI营销集成服务
-  description: "北上广研发＋广西集成＋东盟应用 - AI驱动的智能营销解决方案"
-  keywords: [AI营销, 智能营销, 广西, 东盟, 自动化营销, AI集成]
+  description: "北上广研发＋广西集成＋东盟应用 - 专注AI驱动的智能营销解决方案，为企业提供从策略到执行的全链路AI营销集成服务。"
+  keywords: [AI营销, 智能营销, AI营销集成, 北上广研发, 广西集成, 东盟应用, 自动化营销, 内容自动化, 热点追踪, 广西AI, 东盟AI, AI集成服务]
   author: "AI营销团队"
+  # PaperMod 主题会输出 json feed, 需要这个
+  DateFormat: "2006-01-02"
 
   # 主题定制 - 科技蓝
   assets:
     disableHLJS: true
     disableScrollToTop: false
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+    safari_pinned_tab: "/safari-pinned-tab.svg"
+    theme_color: "#1976D2"
+    msapplication_TileColor: "#1976D2"
+    # 禁用指纹（CDN兼容）
+    disableFingerprinting: false
 
-  # SEO
-  EnableRobotsTXT: true
+  # SEO - 搜索引擎验证（通过环境变量或直接填写）
+  # 从各站长平台获取后填写
+  analytics:
+    google:
+      SiteVerificationTag: ""  # Google Search Console 验证码
+    bing:
+      SiteVerificationTag: ""  # Bing Webmaster Tools 验证码
+    yandex:
+      SiteVerificationTag: ""
+    naver:
+      SiteVerificationTag: ""
+    baidu:
+      SiteVerificationTag: ""  # 百度站长平台验证码
 
-  # 自定义头部
-  customCSS:
-    - css/custom.css
+  # Schema.org 配置
+  schema:
+    publisherType: "Organization"
+    sameAs:
+      - "https://github.com/ai-marketing"
+      - "mailto:contact@aimarketing.site"
+
+  # 社交链接
+  socialIcons:
+    - name: github
+      url: "https://github.com/ai-marketing"
+    - name: email
+      url: "mailto:contact@aimarketing.site"
+
+  # 社交元数据（Open Graph / Twitter 用）
+  social:
+    twitter: ""  # 如有Twitter账号填写 @handle
+    facebook_admin: ""  # Facebook 管理员ID
+    # fediverse_creator: ""  # 如有 Fediverse 账号
+
+  # 自定义CSS已移至 assets/css/extended/custom.css (PaperMod自动加载)
+  customCSS: []
   customJS: []
 
   # 首页配置
@@ -65,13 +106,6 @@ params:
 
       专注AI驱动的智能化营销解决方案，为企业提供从策略到执行的全链路AI营销服务。
 
-  # 社交链接
-  socialIcons:
-    - name: github
-      url: "https://github.com/ai-marketing"
-    - name: email
-      url: "mailto:contact@aimarketing.site"
-
   # 搜索
   fuseOpts:
     isCaseSensitive: false
@@ -81,6 +115,9 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
+
+# SEO（顶级配置，不在params下）
+enableRobotsTXT: true
 
 # 输出格式
 outputs:
@@ -115,11 +152,12 @@ markup:
     guessSyntax: true
     lineNos: false
     style: monokai
+    noClasses: false  # PaperMod 要求
   goldmark:
     renderer:
       unsafe: true
 
-# Sitemap
+# Sitemap - 自定义各内容类型的优先级
 sitemap:
   changefreq: weekly
   priority: 0.5
@@ -141,3 +179,66 @@ security:
     getenv:
       - ^HUGO_
       - ^GITHUB_
+      - ^BAIDU_TOKEN$
+
+# 性能优化 - Hugo 默认在 production 环境启用压缩
+# 以下为显式配置
+minify:
+  disableXML: false
+  minifyOutput: true
+  tdewolff:
+    css:
+      keepCSS2: true
+      precision: 2
+    html:
+      keepComments: false
+      keepConditionalComments: false
+      keepDefaultAttrVals: true
+      keepDocumentTags: true
+      keepEndTags: true
+      keepQuotes: false
+      keepWhitespace: false
+    js:
+      keepVarNames: false
+      precision: 0
+    svg:
+      precision: 2
+    xml:
+      keepWhitespace: false
+
+# 服务器缓存头配置（对 GitHub Pages 无效，但对自建服务器有效）
+# Hugo v0.134+ 支持 server 配置
+server:
+  headers:
+    - for: "**.html"
+      values:
+        Cache-Control: "public, max-age=3600"
+    - for: "**.css"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "**.js"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "**.png"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "**.jpg"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "**.webp"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "**.svg"
+      values:
+        Cache-Control: "public, max-age=31536000, immutable"
+    - for: "/sitemap.xml"
+      values:
+        Cache-Control: "public, max-age=3600"
+    - for: "/robots.txt"
+      values:
+        Cache-Control: "public, max-age=86400"
+
+# 构建配置
+build:
+  noJSConfigInAssets: false
+  useResourceCacheWhen: fallback
