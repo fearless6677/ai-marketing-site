@@ -1,0 +1,49 @@
+# Hugo
+public/
+resources/
+
+# 日志
+logs/*.log
+
+# 数据（不提交采集数据到仓库）
+data/hotspots/*.json
+!data/hotspots/.gitkeep
+data/google_credentials.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Hugo
+.hugo_build.lock
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# Node (如需要)
+node_modules/
+package-lock.json
+yarn.lock

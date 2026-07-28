@@ -1,0 +1,294 @@
+/* AI营销集成服务 - 科技蓝主题 */
+
+/* CSS Variables */
+:root {
+  --primary: #1976D2;
+  --primary-light: #42A5F5;
+  --primary-dark: #1565C0;
+  --primary-darker: #0D47A1;
+  --accent: #00BCD4;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F5F7FA;
+  --bg-dark: #0A1929;
+  --text-primary: #1A1A2E;
+  --text-secondary: #546E7A;
+  --text-light: #90A4AE;
+  --border-color: #E0E6ED;
+  --success: #4CAF50;
+  --warning: #FF9800;
+  --error: #F44336;
+  --gradient-primary: linear-gradient(135deg, #1976D2 0%, #42A5F5 100%);
+  --gradient-dark: linear-gradient(135deg, #0A1929 0%, #1A237E 100%);
+  --shadow-sm: 0 2px 4px rgba(25, 118, 210, 0.08);
+  --shadow-md: 0 4px 12px rgba(25, 118, 210, 0.12);
+  --shadow-lg: 0 8px 24px rgba(25, 118, 210, 0.16);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+/* Dark mode */
+.dark {
+  --bg-primary: #0A1929;
+  --bg-secondary: #0D2137;
+  --text-primary: #E0E6ED;
+  --text-secondary: #90A4AE;
+  --text-light: #607D8B;
+  --border-color: #1E3A5F;
+}
+
+/* Global styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header & Navigation */
+.site-header, header {
+  background: var(--gradient-primary) !important;
+  box-shadow: var(--shadow-md);
+}
+
+.nav-bar, nav {
+  background: transparent !important;
+}
+
+.nav a, nav a, .menu a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  transition: color 0.2s ease;
+}
+
+.nav a:hover, nav a:hover, .menu a:hover {
+  color: #FFFFFF !important;
+}
+
+.site-title, .logo a {
+  color: #FFFFFF !important;
+  font-weight: 700;
+}
+
+/* Hero / Home info */
+.home-info {
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--gradient-dark);
+  color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  margin: 20px;
+}
+
+.home-info h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #90CAF9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-info p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Post cards */
+.post-entry, .post-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.post-entry:hover, .post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
+}
+
+.post-entry h2 a, .post-card h2 a {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+
+.post-entry h2 a:hover, .post-card h2 a:hover {
+  color: var(--primary);
+}
+
+/* Tags & Categories */
+.post-tags a, .tag-cloud a {
+  display: inline-block;
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin: 2px 4px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.post-tags a:hover, .tag-cloud a:hover {
+  background: var(--primary-dark);
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-dark);
+}
+
+/* Buttons */
+.btn, button, input[type="submit"] {
+  background: var(--gradient-primary);
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover, button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Code blocks */
+code, pre {
+  border-radius: var(--radius-sm);
+}
+
+pre {
+  border-left: 4px solid var(--primary);
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5em 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+th {
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) {
+  background: var(--bg-secondary);
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid var(--primary);
+  background: var(--bg-secondary);
+  padding: 16px 24px;
+  margin: 1.5em 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Footer */
+.site-footer, footer {
+  background: var(--bg-dark) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  padding: 40px 20px;
+}
+
+footer a {
+  color: var(--primary-light) !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .home-info {
+    padding: 40px 16px;
+    margin: 10px;
+  }
+
+  .home-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .post-entry {
+    padding: 16px;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Selection */
+::selection {
+  background: var(--primary-light);
+  color: #FFFFFF;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.post-entry {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Search */
+.search-input {
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+}

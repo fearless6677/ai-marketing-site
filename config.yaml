@@ -1,0 +1,143 @@
+baseURL: "https://aimarketing.site/"
+languageCode: zh-cn
+title: "AI营销集成服务"
+theme: "PaperMod"
+pagination:
+  pagerSize: 10
+defaultContentLanguage: zh
+
+# 语言设置
+languages:
+  zh:
+    languageName: "中文"
+    weight: 1
+    params:
+      languageCode: zh-CN
+
+# 菜单配置
+menu:
+  main:
+    - name: 首页
+      url: /
+      weight: 1
+    - name: 博客
+      url: /posts/
+      weight: 2
+    - name: 分类
+      url: /categories/
+      weight: 3
+    - name: 标签
+      url: /tags/
+      weight: 4
+    - name: 搜索
+      url: /search/
+      weight: 5
+    - name: 关于我们
+      url: /about/
+      weight: 6
+
+# 站点参数
+params:
+  env: production
+  title: AI营销集成服务
+  description: "北上广研发＋广西集成＋东盟应用 - AI驱动的智能营销解决方案"
+  keywords: [AI营销, 智能营销, 广西, 东盟, 自动化营销, AI集成]
+  author: "AI营销团队"
+
+  # 主题定制 - 科技蓝
+  assets:
+    disableHLJS: true
+    disableScrollToTop: false
+
+  # SEO
+  EnableRobotsTXT: true
+
+  # 自定义头部
+  customCSS:
+    - css/custom.css
+  customJS: []
+
+  # 首页配置
+  homeInfoParams:
+    Title: "AI营销集成服务"
+    Content: >
+      **北上广研发＋广西集成＋东盟应用**
+
+      专注AI驱动的智能化营销解决方案，为企业提供从策略到执行的全链路AI营销服务。
+
+  # 社交链接
+  socialIcons:
+    - name: github
+      url: "https://github.com/ai-marketing"
+    - name: email
+      url: "mailto:contact@aimarketing.site"
+
+  # 搜索
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# 输出格式
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+# 分类法
+taxonomies:
+  category: categories
+  tag: tags
+
+# 相关页面
+related:
+  includeNewer: true
+  threshold: 60
+  toLower: false
+  indices:
+    - name: tags
+      weight: 100
+    - name: categories
+      weight: 80
+    - name: date
+      weight: 10
+
+# 代码高亮
+markup:
+  highlight:
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    style: monokai
+  goldmark:
+    renderer:
+      unsafe: true
+
+# Sitemap
+sitemap:
+  changefreq: weekly
+  priority: 0.5
+  filename: sitemap.xml
+
+# 永久链接
+permalinks:
+  posts: "/:year/:month/:slug/"
+
+# 隐私
+privacy:
+  googleAnalytics:
+    anonymizeIP: true
+    respectDoNotTrack: true
+
+# 安全
+security:
+  funcs:
+    getenv:
+      - ^HUGO_
+      - ^GITHUB_

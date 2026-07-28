@@ -1,0 +1,44 @@
+# SEO配置文件
+# 注意：敏感信息（token、credentials）应通过GitHub Secrets管理，不要提交到仓库
+
+# 站点信息
+site_url: "https://aimarketing.site"
+
+# 百度推送配置
+# token从百度站长平台获取：https://ziyuan.baidu.com/
+baidu_token: ""  # 建议通过环境变量 BAIDU_TOKEN 设置
+
+# Google Search Console配置
+# 服务账号JSON文件路径（相对于项目根目录）
+google_credentials_path: "data/google_credentials.json"
+# 或通过环境变量 GOOGLE_CREDENTIALS 设置base64编码的JSON
+
+# 提交控制
+submit_enabled: true
+
+# 提交策略
+submit_settings:
+  # 每次提交最大URL数
+  max_urls_per_submit: 100
+  # 提交间隔（秒）
+  submit_interval: 2
+  # 失败重试次数
+  max_retries: 3
+
+# Sitemap配置
+sitemap:
+  enabled: true
+  path: "/sitemap.xml"
+  # Hugo会自动生成
+
+# 其他搜索引擎
+other_engines:
+  - name: "360搜索"
+    url: "https://zhanzhang.so.com/"
+    sitemap_submit: true
+  - name: "搜狗"
+    url: "https://zhanzhang.sogou.com/"
+    sitemap_submit: true
+  - name: "Bing"
+    url: "https://www.bing.com/webmasters/"
+    sitemap_submit: true
