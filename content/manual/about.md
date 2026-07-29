@@ -49,6 +49,12 @@ noIndex: true
 
 ### 联系我们
 
-- 📧 邮箱：contact@aimarketing.site
-- 🐙 GitHub：[github.com/ai-marketing](https://github.com/ai-marketing)
-- 🌐 网站：https://aimarketing.site
+-  **微信**：xiyinli2838333（扫码添加）
+-  **邮箱**：contact@aimarketing.site
+- 🐙 **GitHub**：[github.com/ai-marketing](https://github.com/ai-marketing)
+- 🌐 **网站**：https://aimarketing.site
+
+<div style="text-align: center; margin: 32px 0;">
+    <img src="/images/wechat-qr.png" alt="微信二维码" style="width: 180px; height: 180px; border: 1px solid #E0E7FF; border-radius: 12px; padding: 10px; background: white;">
+    <p style="margin-top: 12px; color: #64748B; font-size: 0.85rem;">微信扫码添加，获取免费咨询</p>
+</div>
