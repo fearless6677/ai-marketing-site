@@ -2,6 +2,7 @@
 title: "AI营销系统集成：从短视频获客到智能客服的全链路解决方案"
 date: 2026-07-29
 draft: false
+slug: "ai-marketing-system"
 description: "详解AI营销集成服务如何通过短视频获客、智能客服、自动化内容生产等技术，帮助企业降低60%获客成本，提升3倍转化效率"
 keywords: ["AI营销", "短视频获客", "智能客服", "营销自动化", "AI内容生成", "广西AI", "东盟营销"]
 author: "AI营销团队"
