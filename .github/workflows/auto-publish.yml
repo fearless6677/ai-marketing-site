@@ -80,6 +80,12 @@ jobs:
           HUGO_ENV: production
         run: hugo --minify
 
+      # ─── Step 3.5: 复制独立官网首页 ─────────────────────────
+      - name: Step 3.5 - Copy landing page
+        run: |
+          cp static/index.html public/index.html
+          echo "Landing page copied to public/index.html"
+
       # ─── Step 4: 提交并推送 ────────────────────────────────
       - name: Step 4 - Commit and push
         id: publish
