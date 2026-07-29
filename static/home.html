@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI营销集成服务 - 让AI成为你的超级营销团队</title>
-  <meta name="description" content="北上广研发＋广西集成＋东盟应用。短视频AI获客、智能客服、内容自动化，一站式AI营销解决方案。">
+  <meta name="description" content="北上广研发＋广西集成＋东盟应用。14大功能模块、4大视频模型、30+行业智能体，一站式AI营销解决方案。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
@@ -12,8 +12,7 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; color: #1e293b; background: #fff; line-height: 1.6; overflow-x: hidden; }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(224,231,255,0.6); z-index: 100; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+    nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(224,231,255,0.6); z-index: 100; height: 64px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
     .nav-logo { font-size: 1.15rem; font-weight: 800; background: linear-gradient(135deg, #6366F1, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; letter-spacing: -0.02em; }
     .nav-links { display: flex; gap: 4px; list-style: none; }
     .nav-links a { color: #64748b; text-decoration: none; font-size: 0.88rem; font-weight: 500; padding: 8px 16px; border-radius: 100px; transition: all 0.2s; }
@@ -21,7 +20,6 @@
     .nav-cta { background: #6366F1 !important; color: white !important; -webkit-text-fill-color: white; }
     .nav-cta:hover { background: #4F46E5 !important; }
 
-    /* HERO */
     .hero { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%); color: white; padding: 160px 40px 120px; text-align: center; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -300px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%; }
     .hero::after { content: ''; position: absolute; bottom: -200px; left: -150px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%); border-radius: 50%; }
@@ -37,11 +35,10 @@
     .btn-white:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.2); }
     .btn-outline { background: rgba(255,255,255,0.1); color: white; border: 1.5px solid rgba(255,255,255,0.3); backdrop-filter: blur(10px); }
     .btn-outline:hover { background: rgba(255,255,255,0.2); }
-    .hero-metrics { display: flex; justify-content: center; gap: 80px; }
-    .metric-val { font-size: 3rem; font-weight: 900; line-height: 1; }
-    .metric-label { font-size: 0.9rem; opacity: 0.8; margin-top: 8px; }
+    .hero-metrics { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+    .metric-val { font-size: 2.8rem; font-weight: 900; line-height: 1; }
+    .metric-label { font-size: 0.85rem; opacity: 0.8; margin-top: 8px; }
 
-    /* SECTIONS */
     .section { padding: 100px 40px; }
     .section-alt { background: #F8FAFF; }
     .wrap { max-width: 1120px; margin: 0 auto; }
@@ -52,7 +49,6 @@
     .sec-head { text-align: center; margin-bottom: 64px; }
     .sec-head .sec-desc { margin: 0 auto; }
 
-    /* SERVICES */
     .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .svc-card { background: white; border-radius: 20px; padding: 40px 32px; border: 1px solid #E8ECFF; transition: all 0.35s; position: relative; overflow: hidden; }
     .svc-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(99,102,241,0.12); border-color: #A5B4FC; }
@@ -68,14 +64,12 @@
     .svc-impact .label { font-size: 0.78rem; color: #94A3B8; font-weight: 500; }
     .svc-impact .value { font-weight: 800; color: #6366F1; font-size: 1rem; }
 
-    /* WHY */
     .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
     .why-item { text-align: center; padding: 32px 24px; }
     .why-emoji { font-size: 2.8rem; margin-bottom: 16px; display: block; }
     .why-item h4 { font-size: 1.1rem; font-weight: 700; color: #0F172A; margin-bottom: 8px; }
     .why-item p { color: #64748B; font-size: 0.9rem; line-height: 1.6; }
 
-    /* PRICING */
     .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
     .price-card { background: white; border-radius: 20px; padding: 40px 32px; border: 1px solid #E8ECFF; transition: all 0.35s; position: relative; }
     .price-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(99,102,241,0.1); }
@@ -97,7 +91,18 @@
     .price-btn.fill { background: linear-gradient(135deg, #6366F1, #7C3AED); color: white; border-color: transparent; }
     .price-btn.fill:hover { opacity: 0.9; transform: translateY(-1px); }
 
-    /* TESTIMONIALS */
+    .compare-section { background: white; }
+    .compare-table { width: 100%; border-collapse: collapse; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .compare-table th { padding: 16px 20px; text-align: left; font-size: 0.9rem; font-weight: 700; }
+    .compare-table th:first-child { background: #F8FAFF; color: #0F172A; }
+    .compare-table th:nth-child(2) { background: #FEF2F2; color: #DC2626; }
+    .compare-table th:nth-child(3) { background: #F0FDF4; color: #16A34A; }
+    .compare-table td { padding: 14px 20px; border-top: 1px solid #F1F5F9; font-size: 0.9rem; }
+    .compare-table td:first-child { font-weight: 600; color: #0F172A; background: #FAFBFF; }
+    .compare-table td:nth-child(2) { color: #64748B; text-align: center; }
+    .compare-table td:nth-child(3) { color: #0F172A; text-align: center; font-weight: 600; background: #FAFFFE; }
+    .compare-table tr:hover td { background: #F8FAFF; }
+
     .test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .test-card { background: white; border-radius: 20px; padding: 32px; border: 1px solid #E8ECFF; }
     .test-stars { color: #F59E0B; font-size: 1.1rem; margin-bottom: 16px; letter-spacing: 2px; }
@@ -107,7 +112,6 @@
     .test-name { font-weight: 700; color: #0F172A; font-size: 0.9rem; }
     .test-role { color: #94A3B8; font-size: 0.8rem; }
 
-    /* CTA */
     .cta { background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #A855F7 100%); padding: 100px 40px; }
     .cta-inner { max-width: 700px; margin: 0 auto; text-align: center; color: white; }
     .cta h2 { font-size: 2.5rem; font-weight: 900; margin-bottom: 16px; letter-spacing: -0.02em; }
@@ -118,17 +122,15 @@
     .cta-detail p { margin: 0 0 10px 0; font-size: 1rem; }
     .cta-detail strong { font-weight: 800; }
 
-    /* FOOTER */
     footer { background: #0F172A; color: #94A3B8; padding: 48px 40px; text-align: center; }
     footer a { color: #A5B4FC; text-decoration: none; }
     footer a:hover { color: white; }
     footer p { margin: 6px 0; font-size: 0.88rem; }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .svc-grid, .price-grid, .why-grid, .test-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2.8rem; }
-      .hero-metrics { gap: 40px; flex-wrap: wrap; }
+      .hero-metrics { gap: 32px; }
       .metric-val { font-size: 2.2rem; }
       .sec-title { font-size: 2.2rem; }
       .cta-box { flex-direction: column; }
@@ -137,6 +139,8 @@
       .price-card.pop:hover { transform: translateY(-6px); }
       nav { padding: 0 20px; }
       .nav-links a { padding: 6px 10px; font-size: 0.82rem; }
+      .compare-table { font-size: 0.82rem; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
     }
     @media (max-width: 600px) {
       .hero { padding: 120px 20px 80px; }
@@ -156,7 +160,7 @@
   <a href="home.html" class="nav-logo">AI营销集成服务</a>
   <ul class="nav-links">
     <li><a href="#services">服务</a></li>
-    <li><a href="#why">优势</a></li>
+    <li><a href="#compare">对比</a></li>
     <li><a href="#pricing">定价</a></li>
     <li><a href="#cases">案例</a></li>
     <li><a href="#contact" class="nav-cta">免费咨询</a></li>
@@ -165,17 +169,17 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"> AI驱动 · 全链路营销</div>
+    <div class="hero-badge"> 680亿AI营销赛道 · 32%年增速 · 95%企业尚未布局</div>
     <h1>让AI成为你的<br><span class="highlight">超级营销团队</span></h1>
     <p class="hero-sub">北上广研发＋广西集成＋东盟应用</p>
-    <p class="hero-desc">从短视频获客到智能客服，从内容自动化到SEO优化<br>一站式AI营销集成服务，让获客成本降低60%</p>
+    <p class="hero-desc">14大功能模块 · 4大视频模型 · 30+行业智能体<br>一个人 + AI系统 = 一个完整营销团队</p>
     <div class="hero-btns">
       <a href="#pricing" class="btn btn-white">查看套餐</a>
       <a href="#contact" class="btn btn-outline">免费诊断 →</a>
     </div>
     <div class="hero-metrics">
       <div><div class="metric-val">680亿</div><div class="metric-label">AI营销市场规模</div></div>
-      <div><div class="metric-val">32%</div><div class="metric-label">年增长率</div></div>
+      <div><div class="metric-val">32%</div><div class="metric-label">年增长率 (IDC)</div></div>
       <div><div class="metric-val">&lt;5%</div><div class="metric-label">企业AI渗透率</div></div>
       <div><div class="metric-val">93%</div><div class="metric-label">服务毛利率</div></div>
     </div>
@@ -197,7 +201,7 @@
         <ul class="svc-list">
           <li>4大AI视频模型（Sora/Veo/Seedance/Grok）</li>
           <li>实时热点监控（抖音/微博/百度/36氪）</li>
-          <li>IP数字人+AI混剪+自动字幕</li>
+          <li>IP数字人 + AI混剪 + 自动字幕</li>
           <li>一键发布到5+平台（抖音/快手/视频号/小红书）</li>
         </ul>
         <div class="svc-impact"><span class="label">客户效果</span><span class="value">播放量提升10倍，到店客户+200%</span></div>
@@ -208,21 +212,21 @@
         <p>30+行业智能体覆盖，微信/抖音/企微全渠道，7×24小时自动应答，解决80%常见问题</p>
         <ul class="svc-list">
           <li>30+行业智能体（餐饮/美容/教培/电商…）</li>
-          <li>微信智能体+企微智能体+抖音AI客服</li>
-          <li>知识库自动学习+客户画像分析</li>
+          <li>微信智能体 + 企微智能体 + 抖音AI客服</li>
+          <li>知识库自动学习 + 客户画像分析</li>
           <li>Geo获客（地理位置精准引流）</li>
         </ul>
         <div class="svc-impact"><span class="label">客户效果</span><span class="value">客服成本降低60%，转化率+35%</span></div>
       </div>
       <div class="svc-card">
-        <div class="svc-icon">✍️</div>
+        <div class="svc-icon">️</div>
         <h3>AI内容自动化</h3>
         <p>14大功能模块全链路自动化，热点采集→Claude/GPT-4写作→SEO优化→自动发布→搜索引擎提交</p>
         <ul class="svc-list">
-          <li>AI Claw智能调度+自动工作流</li>
+          <li>AI Claw智能调度 + 自动工作流</li>
           <li>Claude API + DeepSeek + Qwen多模型</li>
           <li>自动SEO（sitemap/Schema.org/提交百度Google）</li>
-          <li>全网聚合发布+定时任务</li>
+          <li>全网聚合发布 + 定时任务</li>
         </ul>
         <div class="svc-impact"><span class="label">客户效果</span><span class="value">6个月自然流量增长10倍，获客成本-70%</span></div>
       </div>
@@ -230,7 +234,24 @@
   </div>
 </section>
 
-<section id="why" class="section section-alt">
+<section id="compare" class="section section-alt compare-section">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">核心价值</div>
+      <h2 class="sec-title">一个人+AI，<span class="grad">干掉4人团队</span></h2>
+    </div>
+    <table class="compare-table">
+      <tr><th>维度</th><th>传统方案 ❌</th><th>AI营销超级个体 ✅</th></tr>
+      <tr><td>人员配置</td><td>4人团队<br><small>剪辑+运营+客服+市场</small></td><td><strong>1人 + AI系统</strong></td></tr>
+      <tr><td>月成本</td><td style="color:#DC2626;">¥25,600+<br><small>4人×¥6,400/月</small></td><td style="color:#16A34A;"><strong>¥300</strong><br><small>AI算力+服务器</small></td></tr>
+      <tr><td>工作时间</td><td>8小时/天</td><td><strong>24小时自动化</strong></td></tr>
+      <tr><td>内容产出</td><td>每周2-3条视频</td><td><strong>每天20+条视频</strong></td></tr>
+      <tr><td>效果稳定性</td><td>依赖个人能力</td><td><strong>AI持续优化</strong></td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="why" class="section">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-label">为什么选择我们</div>
@@ -239,10 +260,64 @@
     <div class="why-grid">
       <div class="why-item"><span class="why-emoji">🚀</span><h4>技术前沿</h4><p>北上广最新AI技术<br>第一时间集成应用</p></div>
       <div class="why-item"><span class="why-emoji">🎯</span><h4>本地深耕</h4><p>深入了解广西及东盟<br>市场特点和需求</p></div>
-      <div class="why-item"><span class="why-emoji">💰</span><h4>成本优势</h4><p>AI自动化大幅降低<br>人工和运营成本</p></div>
+      <div class="why-item"><span class="why-emoji">💰</span><h4>成本革命</h4><p>月均¥300 vs 传统¥25,600<br>降低98%运营成本</p></div>
       <div class="why-item"><span class="why-emoji"></span><h4>快速响应</h4><p>7×24小时系统运行<br>实时捕捉市场机会</p></div>
-      <div class="why-item"><span class="why-emoji">📊</span><h4>效果可量化</h4><p>所有服务都有明确的<br>数据指标和ROI</p></div>
+      <div class="why-item"><span class="why-emoji"></span><h4>效果可量化</h4><p>所有服务都有明确的<br>数据指标和ROI</p></div>
       <div class="why-item"><span class="why-emoji">🔄</span><h4>持续优化</h4><p>根据数据持续调整<br>营销策略和方向</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="section section-alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-label">服务套餐</div>
+      <h2 class="sec-title">按设备数量定价，<span class="grad">透明无套路</span></h2>
+      <p class="sec-desc">OPC理念：不追求融资扩张，用心服务好每一个客户</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-name">基础版</div>
+        <div class="price-amt"><span class="cur">¥</span><span class="num">1,980</span><span class="per">/年</span></div>
+        <p class="price-for">1台设备 · 适合个体户/小微商家</p>
+        <ul class="price-feats">
+          <li><span class="yk">✓</span> AI短视频脚本 30条/月</li>
+          <li><span class="yk">✓</span> AI客服基础版（1渠道）</li>
+          <li><span class="yk">✓</span> 每周2篇AI文章+SEO</li>
+          <li><span class="yk">✓</span> 基础数据报告</li>
+          <li class="no">✗ 多平台分发</li>
+          <li class="no">✗ 运营陪跑</li>
+        </ul>
+        <a href="#contact" class="price-btn">选择方案</a>
+      </div>
+      <div class="price-card pop">
+        <div class="price-name">专业版 ⭐</div>
+        <div class="price-amt"><span class="cur">¥</span><span class="num">5,980</span><span class="per">/年</span></div>
+        <p class="price-for">5台设备 · 适合中小企业/成长期品牌</p>
+        <ul class="price-feats">
+          <li><span class="yk">✓</span> AI短视频全链路 60条/月</li>
+          <li><span class="yk">✓</span> AI客服专业版（3渠道）</li>
+          <li><span class="yk">✓</span> 每天1篇AI文章+SEO优化</li>
+          <li><span class="yk">✓</span> 多平台自动分发</li>
+          <li><span class="yk">✓</span> 详细数据+优化建议</li>
+          <li class="no">✗ 运营陪跑</li>
+        </ul>
+        <a href="#contact" class="price-btn fill">选择方案</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">企业版</div>
+        <div class="price-amt"><span class="cur">¥</span><span class="num">24,800</span><span class="per">/年</span></div>
+        <p class="price-for">不限设备 + 运营陪跑 · 适合中大型企业</p>
+        <ul class="price-feats">
+          <li><span class="yk">✓</span> 所有内容生产不限量</li>
+          <li><span class="yk">✓</span> AI客服全渠道覆盖</li>
+          <li><span class="yk">✓</span> 完整SEO+SEM策略</li>
+          <li><span class="yk">✓</span> 数据分析+策略优化</li>
+          <li><span class="yk">✓</span> 专属客户经理</li>
+          <li><span class="yk">✓</span> 月度复盘+季度规划+运营陪跑</li>
+        </ul>
+        <a href="#contact" class="price-btn">选择方案</a>
+      </div>
     </div>
   </div>
 </section>
@@ -261,67 +336,13 @@
       </div>
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
-        <p class="test-text">"客服从2人减到0.5人，AI处理了80%的咨询。响应时间从5分钟降到10秒，客户满意度反而提高了。"</p>
+        <p class="test-text">"客服从2人减到0.5人，AI处理了80%的咨询。响应时间从5分钟降到10秒，客户满意度反而提高了。年省人力成本15万+。"</p>
         <div class="test-author"><div class="test-avatar">王</div><div><div class="test-name">王经理</div><div class="test-role">跨境电商公司</div></div></div>
       </div>
       <div class="test-card">
         <div class="test-stars">★★★★★</div>
         <p class="test-text">"以前每周写2篇文章都费劲，现在AI每天自动产出1篇专业内容，半年自然流量从500涨到5000+，获客成本降了70%。"</p>
         <div class="test-author"><div class="test-avatar">张</div><div><div class="test-name">张总</div><div class="test-role">B2B科技公司</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing" class="section section-alt">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-label">服务套餐</div>
-      <h2 class="sec-title">灵活定价，<span class="grad">按需选择</span></h2>
-      <p class="sec-desc">从个体户到大型企业，都有合适的方案</p>
-    </div>
-    <div class="price-grid">
-      <div class="price-card">
-        <div class="price-name">基础版</div>
-        <div class="price-amt"><span class="cur">¥</span><span class="num">3,000</span><span class="per">/月</span></div>
-        <p class="price-for">适合个体户、小微商家</p>
-        <ul class="price-feats">
-          <li><span class="yk">✓</span> AI短视频脚本 30条/月</li>
-          <li><span class="yk">✓</span> AI客服基础版（1渠道）</li>
-          <li><span class="yk">✓</span> 每周2篇AI文章</li>
-          <li><span class="yk">✓</span> 基础数据报告</li>
-          <li class="no">✗ 多平台分发</li>
-          <li class="no">✗ 专属客户经理</li>
-        </ul>
-        <a href="#contact" class="price-btn">选择方案</a>
-      </div>
-      <div class="price-card pop">
-        <div class="price-name">专业版</div>
-        <div class="price-amt"><span class="cur">¥</span><span class="num">8,000</span><span class="per">/月</span></div>
-        <p class="price-for">适合中小企业、成长期品牌</p>
-        <ul class="price-feats">
-          <li><span class="yk">✓</span> AI短视频全链路 60条/月</li>
-          <li><span class="yk">✓</span> AI客服专业版（3渠道）</li>
-          <li><span class="yk">✓</span> 每天1篇AI文章+SEO</li>
-          <li><span class="yk">✓</span> 多平台自动分发</li>
-          <li><span class="yk">✓</span> 详细数据+优化建议</li>
-          <li class="no">✗ 专属客户经理</li>
-        </ul>
-        <a href="#contact" class="price-btn fill">选择方案</a>
-      </div>
-      <div class="price-card">
-        <div class="price-name">全案版</div>
-        <div class="price-amt"><span class="cur">¥</span><span class="num">20,000</span><span class="per">/月</span></div>
-        <p class="price-for">适合中大型企业</p>
-        <ul class="price-feats">
-          <li><span class="yk">✓</span> 所有内容生产不限量</li>
-          <li><span class="yk">✓</span> AI客服全渠道覆盖</li>
-          <li><span class="yk">✓</span> 完整SEO+SEM策略</li>
-          <li><span class="yk">✓</span> 数据分析+策略优化</li>
-          <li><span class="yk">✓</span> 专属客户经理</li>
-          <li><span class="yk">✓</span> 月度复盘+季度规划</li>
-        </ul>
-        <a href="#contact" class="price-btn">选择方案</a>
       </div>
     </div>
   </div>
@@ -336,7 +357,7 @@
       <div class="cta-detail">
         <p>微信号：<strong>xiyinli2838333</strong></p>
         <p>邮箱：contact@aimarketing.site</p>
-        <p style="margin-top:16px;font-size:1.15rem;font-weight:700;"> 限时优惠：首月8折</p>
+        <p style="margin-top:16px;font-size:1.15rem;font-weight:700;">🎁 限时优惠：首年8折</p>
         <p style="font-size:0.9rem;opacity:0.8;">7天免费试用 · 不满意全额退款</p>
       </div>
     </div>
