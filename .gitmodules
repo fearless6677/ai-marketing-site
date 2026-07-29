@@ -1,3 +1,6 @@
 [submodule "themes/PaperMod"]
 	path = themes/PaperMod
 	url = https://github.com/adityatelange/hugo-PaperMod.git
+[submodule "themes/saas-landing-page"]
+	path = themes/saas-landing-page
+	url = https://github.com/HugoBlox/hugo-theme-saas-landing-page.git
