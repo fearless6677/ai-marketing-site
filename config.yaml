@@ -46,7 +46,16 @@ params:
   # PaperMod 主题会输出 json feed, 需要这个
   DateFormat: "2006-01-02"
 
-  # 主题定制 - 科技蓝
+  # 主题设置 - 亮色主题
+  defaultTheme: "light"
+  disableThemeToggle: true
+  ShowShareButtons: false
+  ShowCodeCopyButtons: true
+  ShowBreadCrumbs: true
+  ShowToc: false
+  TocOpen: false
+
+  # 主题定制 - 现代亮色
   assets:
     disableHLJS: true
     disableScrollToTop: false
@@ -55,8 +64,8 @@ params:
     favicon32x32: "/favicon-32x32.png"
     apple_touch_icon: "/apple-touch-icon.png"
     safari_pinned_tab: "/safari-pinned-tab.svg"
-    theme_color: "#1976D2"
-    msapplication_TileColor: "#1976D2"
+    theme_color: "#6366F1"
+    msapplication_TileColor: "#6366F1"
     # 禁用指纹（CDN兼容）
     disableFingerprinting: false
 
