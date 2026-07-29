@@ -158,6 +158,18 @@ python scripts/submit_to_google.py
 | 域名 | ¥50-100/年 |
 | **总计** | **约¥100-150/月** |
 
+## 🌍 多语言支持 / Multi-Language Support
+
+本项目支持多种语言，服务东盟地区：
+
+- [中文](README.md) - Chinese
+- [English](README.en.md) - English
+- [ภาษาไทย](README.th.md) - Thai
+- [Tiếng Việt](README.vi.md) - Vietnamese
+- [Bahasa Indonesia](README.id.md) - Indonesian
+- [Bahasa Melayu](README.ms.md) - Malay
+- [Filipino](README.ph.md) - Filipino
+
 ## 📄 License
 
 MIT License
