@@ -103,17 +103,16 @@ params:
     facebook_admin: ""  # Facebook 管理员ID
     # fediverse_creator: ""  # 如有 Fediverse 账号
 
-  # 自定义CSS已移至 assets/css/extended/custom.css (PaperMod自动加载)
+  # 自定义CSS - PaperMod自动加载 assets/css/extended/ 目录下的文件
   customCSS: []
   customJS: []
 
-  # 首页配置
-  homeInfoParams:
-    Title: "AI营销集成服务"
-    Content: >
-      **北上广研发＋广西集成＋东盟应用**
-
-      专注AI驱动的智能化营销解决方案，为企业提供从策略到执行的全链路AI营销服务。
+  # 首页配置（已使用自定义layouts/index.html，此配置不再生效）
+  # homeInfoParams:
+  #   Title: "AI营销集成服务"
+  #   Content: >
+  #     **北上广研发＋广西集成＋东盟应用**
+  #     专注AI驱动的智能化营销解决方案，为企业提供从策略到执行的全链路AI营销服务。
 
   # 搜索
   fuseOpts:
