@@ -127,12 +127,20 @@ params:
 # SEO（顶级配置，不在params下）
 enableRobotsTXT: true
 
-# 输出格式
+# 输出格式 - 首页不生成HTML，使用static/index.html作为官网首页
 outputs:
   home:
-    - HTML
     - RSS
     - JSON
+  section:
+    - HTML
+    - RSS
+  taxonomy:
+    - HTML
+    - RSS
+  term:
+    - HTML
+    - RSS
 
 # 分类法
 taxonomies:
