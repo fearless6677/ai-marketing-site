@@ -7,6 +7,8 @@
   <meta name="description" content="北上广研发＋广西集成＋东盟应用。14大功能模块、4大视频模型、30+行业智能体，一站式AI营销解决方案。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -71,9 +73,9 @@
     .why-item p { color: #64748B; font-size: 0.9rem; line-height: 1.6; }
 
     .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start; }
-    .price-card { background: white; border-radius: 20px; padding: 40px 32px; border: 1px solid #E8ECFF; transition: all 0.35s; position: relative; }
+    .price-card { background: white; border-radius: 20px; padding: 40px 32px; border: 1px solid #E8ECFF; transition: all 0.35s; position: relative; z-index: 1; }
     .price-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(99,102,241,0.1); }
-    .price-card.pop { border-color: #6366F1; box-shadow: 0 12px 36px rgba(99,102,241,0.15); transform: scale(1.04); }
+    .price-card.pop { border-color: #6366F1; box-shadow: 0 12px 36px rgba(99,102,241,0.15); transform: scale(1.04); overflow: hidden; }
     .price-card.pop:hover { transform: scale(1.04) translateY(-6px); }
     .price-card.pop::before { content: '⭐ 最受欢迎'; position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #6366F1, #A855F7); color: white; padding: 5px 18px; border-radius: 100px; font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
     .price-name { font-size: 1.15rem; font-weight: 700; color: #0F172A; margin-bottom: 16px; }
@@ -152,11 +154,62 @@
       .cta { padding: 60px 20px; }
       .cta h2 { font-size: 1.8rem; }
     }
+
+    /* ========== GSAP Animation Enhancements ========== */
+
+    /* Scroll progress bar */
+    .scroll-progress { position: fixed; top: 64px; left: 0; height: 3px; background: linear-gradient(90deg, #6366F1, #A855F7, #EC4899); z-index: 101; width: 0; border-radius: 0 3px 3px 0; }
+
+    /* Reveal states - hidden only when JS is confirmed running */
+    .js .reveal-up { opacity: 0; transform: translateY(40px); }
+    .js .reveal-scale { opacity: 0; transform: scale(0.92); }
+    .js .reveal-left { opacity: 0; transform: translateX(-40px); }
+    .js .reveal-right { opacity: 0; transform: translateX(40px); }
+
+    /* Hero animated orbs */
+    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-orb-1 { width: 400px; height: 400px; top: -100px; right: -100px; background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%); }
+    .hero-orb-2 { width: 300px; height: 300px; bottom: -80px; left: -60px; background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%); }
+    .hero-orb-3 { width: 200px; height: 200px; top: 50%; left: 60%; background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%); }
+
+    /* Grid pattern overlay */
+    .hero-grid-pattern { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 1; }
+
+    /* Card glow effect - simple box-shadow approach */
+    .svc-card:hover { box-shadow: 0 24px 48px rgba(99,102,241,0.15), 0 0 0 1px rgba(99,102,241,0.2); }
+
+    /* Pricing card subtle shimmer */
+    .price-card.pop::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(99,102,241,0.04), transparent); animation: shimmerSlide 5s ease-in-out infinite; pointer-events: none; }
+    .price-card.pop > * { position: relative; z-index: 1; }
+    @keyframes shimmerSlide { 0%, 100% { left: -100%; } 50% { left: 150%; } }
+
+    /* Animated gradient border for hot card */
+    @keyframes borderGlow { 0%, 100% { border-color: #6366F1; box-shadow: 0 0 20px rgba(99,102,241,0.1); } 50% { border-color: #A855F7; box-shadow: 0 0 30px rgba(168,85,247,0.15); } }
+    .svc-card.hot { animation: borderGlow 3s ease-in-out infinite; }
+
+    /* Testimonial card hover lift */
+    .test-card { transition: all 0.35s; }
+    .test-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(99,102,241,0.1); }
+
+    /* CTA floating shapes */
+    .cta-shapes { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .cta-shape { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.04); }
+
+    /* Nav scroll state */
+    nav.scrolled { box-shadow: 0 4px 24px rgba(99,102,241,0.08); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .js .reveal-up, .js .reveal-scale, .js .reveal-left, .js .reveal-right { opacity: 1; transform: none; }
+      .hero-orb, .cta-shape { display: none; }
+      .svc-card.hot { animation: none; }
+      .price-card.pop::after { display: none; }
+    }
   </style>
 </head>
 <body>
 
-<nav>
+<nav id="mainNav">
   <a href="home.html" class="nav-logo">AI营销集成服务</a>
   <ul class="nav-links">
     <li><a href="#services">服务</a></li>
@@ -166,35 +219,40 @@
     <li><a href="#contact" class="nav-cta">免费咨询</a></li>
   </ul>
 </nav>
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-grid-pattern"></div>
   <div class="hero-inner">
-    <div class="hero-badge"> 680亿AI营销赛道 · 32%年增速 · 95%企业尚未布局</div>
-    <h1>让AI成为你的<br><span class="highlight">超级营销团队</span></h1>
-    <p class="hero-sub">北上广研发＋广西集成＋东盟应用</p>
-    <p class="hero-desc">14大功能模块 · 4大视频模型 · 30+行业智能体<br>一个人 + AI系统 = 一个完整营销团队</p>
-    <div class="hero-btns">
+    <div class="hero-badge reveal-up"> 680亿AI营销赛道 · 32%年增速 · 95%企业尚未布局</div>
+    <h1 class="reveal-up">让AI成为你的<br><span class="highlight">超级营销团队</span></h1>
+    <p class="hero-sub reveal-up">北上广研发＋广西集成＋东盟应用</p>
+    <p class="hero-desc reveal-up">14大功能模块 · 4大视频模型 · 30+行业智能体<br>一个人 + AI系统 = 一个完整营销团队</p>
+    <div class="hero-btns reveal-up">
       <a href="#pricing" class="btn btn-white">查看套餐</a>
       <a href="#contact" class="btn btn-outline">免费诊断 →</a>
     </div>
     <div class="hero-metrics">
-      <div><div class="metric-val">680亿</div><div class="metric-label">AI营销市场规模</div></div>
-      <div><div class="metric-val">32%</div><div class="metric-label">年增长率 (IDC)</div></div>
-      <div><div class="metric-val">&lt;5%</div><div class="metric-label">企业AI渗透率</div></div>
-      <div><div class="metric-val">93%</div><div class="metric-label">服务毛利率</div></div>
+      <div class="reveal-up"><div class="metric-val" data-count="680" data-suffix="亿">0</div><div class="metric-label">AI营销市场规模</div></div>
+      <div class="reveal-up"><div class="metric-val" data-count="32" data-suffix="%">0</div><div class="metric-label">年增长率 (IDC)</div></div>
+      <div class="reveal-up"><div class="metric-val">&lt;<span data-count="5" data-suffix="%">0</span></div><div class="metric-label">企业AI渗透率</div></div>
+      <div class="reveal-up"><div class="metric-val" data-count="93" data-suffix="%">0</div><div class="metric-label">服务毛利率</div></div>
     </div>
   </div>
 </section>
 
 <section id="services" class="section">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal-up">
       <div class="sec-label">核心服务</div>
       <h2 class="sec-title">从获客到转化，<span class="grad">全链路AI赋能</span></h2>
       <p class="sec-desc">三大核心系统，覆盖营销全环节</p>
     </div>
     <div class="svc-grid">
-      <div class="svc-card">
+      <div class="svc-card reveal-up">
         <div class="svc-icon">🎬</div>
         <h3>短视频AI获客</h3>
         <p>集成Sora/Veo/Seedance/Grok 4大视频模型，热点追踪→AI脚本→智能剪辑→多平台分发，日产20+条视频</p>
@@ -206,7 +264,7 @@
         </ul>
         <div class="svc-impact"><span class="label">客户效果</span><span class="value">播放量提升10倍，到店客户+200%</span></div>
       </div>
-      <div class="svc-card hot">
+      <div class="svc-card hot reveal-up">
         <div class="svc-icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </div>
@@ -220,7 +278,7 @@
         </ul>
         <div class="svc-impact"><span class="label">客户效果</span><span class="value">客服成本降低60%，转化率+35%</span></div>
       </div>
-      <div class="svc-card">
+      <div class="svc-card reveal-up">
         <div class="svc-icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
         </div>
@@ -240,11 +298,11 @@
 
 <section id="compare" class="section section-alt compare-section">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal-up">
       <div class="sec-label">核心价值</div>
       <h2 class="sec-title">一个人+AI，<span class="grad">干掉4人团队</span></h2>
     </div>
-    <table class="compare-table">
+    <table class="compare-table reveal-up">
       <tr><th>维度</th><th>传统方案 ❌</th><th>AI营销超级个体 ✅</th></tr>
       <tr><td>人员配置</td><td>4人团队<br><small>剪辑+运营+客服+市场</small></td><td><strong>1人 + AI系统</strong></td></tr>
       <tr><td>月成本</td><td style="color:#DC2626;">¥25,600+<br><small>4人×¥6,400/月</small></td><td style="color:#16A34A;"><strong>¥300</strong><br><small>AI算力+服务器</small></td></tr>
@@ -257,30 +315,30 @@
 
 <section id="why" class="section">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal-up">
       <div class="sec-label">为什么选择我们</div>
       <h2 class="sec-title">六大核心优势</h2>
     </div>
     <div class="why-grid">
-      <div class="why-item"><span class="why-emoji">🚀</span><h4>技术前沿</h4><p>北上广最新AI技术<br>第一时间集成应用</p></div>
-      <div class="why-item"><span class="why-emoji">🎯</span><h4>本地深耕</h4><p>深入了解广西及东盟<br>市场特点和需求</p></div>
-      <div class="why-item"><span class="why-emoji">💰</span><h4>成本革命</h4><p>月均¥300 vs 传统¥25,600<br>降低98%运营成本</p></div>
-      <div class="why-item"><span class="why-emoji">️</span><h4>快速响应</h4><p>7×24小时系统运行<br>实时捕捉市场机会</p></div>
-      <div class="why-item"><span class="why-emoji"></span><h4>效果可量化</h4><p>所有服务都有明确的<br>数据指标和ROI</p></div>
-      <div class="why-item"><span class="why-emoji">🔄</span><h4>持续优化</h4><p>根据数据持续调整<br>营销策略和方向</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">🚀</span><h4>技术前沿</h4><p>北上广最新AI技术<br>第一时间集成应用</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">🎯</span><h4>本地深耕</h4><p>深入了解广西及东盟<br>市场特点和需求</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">💰</span><h4>成本革命</h4><p>月均¥300 vs 传统¥25,600<br>降低98%运营成本</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">⚡</span><h4>快速响应</h4><p>7×24小时系统运行<br>实时捕捉市场机会</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">📊</span><h4>效果可量化</h4><p>所有服务都有明确的<br>数据指标和ROI</p></div>
+      <div class="why-item reveal-up"><span class="why-emoji">🔄</span><h4>持续优化</h4><p>根据数据持续调整<br>营销策略和方向</p></div>
     </div>
   </div>
 </section>
 
 <section id="pricing" class="section section-alt">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal-up">
       <div class="sec-label">服务套餐</div>
       <h2 class="sec-title">按设备数量定价，<span class="grad">透明无套路</span></h2>
       <p class="sec-desc">OPC理念：不追求融资扩张，用心服务好每一个客户</p>
     </div>
     <div class="price-grid">
-      <div class="price-card">
+      <div class="price-card reveal-up">
         <div class="price-name">基础版</div>
         <div class="price-amt"><span class="cur">¥</span><span class="num">1,980</span><span class="per">/年</span></div>
         <p class="price-for">1台设备 · 适合个体户/小微商家</p>
@@ -294,7 +352,7 @@
         </ul>
         <a href="#contact" class="price-btn">选择方案</a>
       </div>
-      <div class="price-card pop">
+      <div class="price-card pop reveal-up">
         <div class="price-name">专业版 ⭐</div>
         <div class="price-amt"><span class="cur">¥</span><span class="num">5,980</span><span class="per">/年</span></div>
         <p class="price-for">5台设备 · 适合中小企业/成长期品牌</p>
@@ -308,7 +366,7 @@
         </ul>
         <a href="#contact" class="price-btn fill">选择方案</a>
       </div>
-      <div class="price-card">
+      <div class="price-card reveal-up">
         <div class="price-name">企业版</div>
         <div class="price-amt"><span class="cur">¥</span><span class="num">24,800</span><span class="per">/年</span></div>
         <p class="price-for">不限设备 + 运营陪跑 · 适合中大型企业</p>
@@ -328,22 +386,22 @@
 
 <section id="cases" class="section">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal-up">
       <div class="sec-label">客户案例</div>
       <h2 class="sec-title">他们都在用AI<span class="grad">降本增效</span></h2>
     </div>
     <div class="test-grid">
-      <div class="test-card">
+      <div class="test-card reveal-up">
         <div class="test-stars">★★★★★</div>
         <p class="test-text">"以前每月花2万请人拍视频，效果一般。现在用AI每天自动生成3条，播放量反而涨了10倍。3个月粉丝从500涨到5000。"</p>
         <div class="test-author"><div class="test-avatar">李</div><div><div class="test-name">李老板</div><div class="test-role">南宁本地餐饮店</div></div></div>
       </div>
-      <div class="test-card">
+      <div class="test-card reveal-up">
         <div class="test-stars">★★★★★</div>
         <p class="test-text">"客服从2人减到0.5人，AI处理了80%的咨询。响应时间从5分钟降到10秒，客户满意度反而提高了。年省人力成本15万+。"</p>
         <div class="test-author"><div class="test-avatar">王</div><div><div class="test-name">王经理</div><div class="test-role">跨境电商公司</div></div></div>
       </div>
-      <div class="test-card">
+      <div class="test-card reveal-up">
         <div class="test-stars">★★★★★</div>
         <p class="test-text">"以前每周写2篇文章都费劲，现在AI每天自动产出1篇专业内容，半年自然流量从500涨到5000+，获客成本降了70%。"</p>
         <div class="test-author"><div class="test-avatar">张</div><div><div class="test-name">张总</div><div class="test-role">B2B科技公司</div></div></div>
@@ -353,7 +411,12 @@
 </section>
 
 <section id="contact" class="cta">
-  <div class="cta-inner">
+  <div class="cta-shapes">
+    <div class="cta-shape" style="width:200px;height:200px;top:-60px;right:10%;"></div>
+    <div class="cta-shape" style="width:120px;height:120px;bottom:-40px;left:15%;"></div>
+    <div class="cta-shape" style="width:80px;height:80px;top:30%;left:5%;"></div>
+  </div>
+  <div class="cta-inner reveal-up">
     <h2>准备好让AI成为你的<br>超级营销团队了吗？</h2>
     <p>立即扫码添加微信，获取免费营销诊断 + 7天免费试用</p>
     <div class="cta-box">
@@ -374,6 +437,148 @@
   <p style="margin-top:16px;"><a href="insights.html">行业洞察</a> · <a href="../about/">关于我们</a> · <a href="../contact/">联系我们</a></p>
   <p style="margin-top:8px;opacity:0.6;">&copy; 2026 AI营销集成服务</p>
 </footer>
+
+<script>
+(function() {
+  // Safety: if GSAP fails to load, page still displays normally
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+    return; // no .js class = CSS keeps elements visible
+  }
+
+  // Mark page as JS-active (CSS uses .js .reveal-up to hide initially)
+  document.documentElement.classList.add('js');
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ========== 1. Hero entrance animation (staggered) ==========
+  const heroTL = gsap.timeline({ defaults: { ease: "power3.out" } });
+  heroTL
+    .fromTo(".hero-orb-1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.2 }, 0)
+    .fromTo(".hero-orb-2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 1 }, 0.2)
+    .fromTo(".hero-orb-3", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 1 }, 0.4)
+    .fromTo(".hero-grid-pattern", { opacity: 0 }, { opacity: 1, duration: 1.5 }, 0)
+    .fromTo(".hero-badge", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, 0.3)
+    .fromTo(".hero h1", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.5)
+    .fromTo(".hero-sub", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.7)
+    .fromTo(".hero-desc", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.85)
+    .fromTo(".hero-btns", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 1.0)
+    .fromTo(".hero-metrics > div", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.12 }, 1.15);
+
+  // ========== 2. Animated counters ==========
+  document.querySelectorAll("[data-count]").forEach(function(el) {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || "";
+    gsap.fromTo(el,
+      { textContent: 0 },
+      {
+        textContent: target,
+        duration: 2,
+        delay: 1.5,
+        ease: "power2.out",
+        snap: { textContent: 1 },
+        onUpdate: function() {
+          el.textContent = Math.round(parseFloat(el.textContent)) + suffix;
+        }
+      }
+    );
+  });
+
+  // ========== 3. Scroll progress bar ==========
+  gsap.to("#scrollProgress", {
+    width: "100%",
+    ease: "none",
+    scrollTrigger: {
+      trigger: document.body,
+      start: "top top",
+      end: "bottom bottom",
+      scrub: 0.3
+    }
+  });
+
+  // ========== 4. Nav scroll effect ==========
+  window.addEventListener("scroll", function() {
+    document.getElementById("mainNav").classList.toggle("scrolled", window.scrollY > 80);
+  });
+
+  // ========== 5. Scroll-triggered reveal (CSS handles initial state) ==========
+  gsap.utils.toArray(".section, .cta").forEach(function(section) {
+    var reveals = section.querySelectorAll(".reveal-up");
+    if (reveals.length > 0) {
+      gsap.fromTo(reveals,
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: section,
+            start: "top 82%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+    }
+  });
+
+  // ========== 6. Floating orb animations (infinite) ==========
+  gsap.to(".hero-orb-1", { y: -30, x: 20, duration: 6, ease: "sine.inOut", yoyo: true, repeat: -1 });
+  gsap.to(".hero-orb-2", { y: 25, x: -15, duration: 8, ease: "sine.inOut", yoyo: true, repeat: -1 });
+  gsap.to(".hero-orb-3", { y: -20, x: -25, duration: 7, ease: "sine.inOut", yoyo: true, repeat: -1 });
+
+  // ========== 7. CTA floating shapes ==========
+  gsap.utils.toArray(".cta-shape").forEach(function(shape, i) {
+    gsap.to(shape, {
+      y: gsap.utils.random(-20, 20),
+      x: gsap.utils.random(-15, 15),
+      duration: gsap.utils.random(4, 7),
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      delay: i * 0.5
+    });
+  });
+
+  // ========== 8. Service card icon bounce on hover ==========
+  document.querySelectorAll(".svc-card").forEach(function(card) {
+    var icon = card.querySelector(".svc-icon");
+    card.addEventListener("mouseenter", function() {
+      gsap.to(icon, { scale: 1.15, duration: 0.3, ease: "back.out(2)" });
+    });
+    card.addEventListener("mouseleave", function() {
+      gsap.to(icon, { scale: 1, duration: 0.3, ease: "power2.out" });
+    });
+  });
+
+  // ========== 9. Compare table row stagger ==========
+  gsap.utils.toArray(".compare-table tr").forEach(function(row, i) {
+    if (i === 0) return;
+    gsap.fromTo(row,
+      { x: -20, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: row,
+          start: "top 90%",
+          toggleActions: "play none none none"
+        }
+      }
+    );
+  });
+
+  // ========== 10. Reduced motion ==========
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    ScrollTrigger.getAll().forEach(function(t) { t.kill(); });
+    gsap.globalTimeline.clear();
+    document.documentElement.classList.remove('js');
+    document.querySelectorAll('.hero-orb, .cta-shape').forEach(function(el) { el.style.display = 'none'; });
+  }
+})();
+</script>
 
 </body>
 </html>
